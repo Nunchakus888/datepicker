@@ -1,0 +1,9 @@
+node_modules/
+build/
+dist/
+html/
+template/
+src/images/
+src/less/
+src/lib/qrcode.js
+src/modules/qrcode/imgs.js
