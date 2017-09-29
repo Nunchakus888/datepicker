@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from '@modules/review/PurchaseReview';
+import App from '@modules/Demo';
 import '../lib/element.config';
 
 new Vue({

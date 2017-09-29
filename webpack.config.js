@@ -5,7 +5,7 @@ const env = require('./build/lib/env');
 
 module.exports = {
     entry: {
-        'purchase-review': './src/pages/purchase-review',
+        'demo': './src/pages/demo',
         'common': ['vue']
     },
     output: {

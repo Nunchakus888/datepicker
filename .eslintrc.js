@@ -20,7 +20,6 @@ module.exports = {
     "AMap": false,
     "DIST_ENV": false
   },
-  "extends": ["airbnb-base","@lingshou/eslint-config-owitho"],
   "plugins": [ "html", "vue"],
   "settings": {
     "html/html-extensions": [".html", ".vue"]
