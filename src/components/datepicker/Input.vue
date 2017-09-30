@@ -130,6 +130,7 @@
                 this.$emit('change', value);
             },
             handleFocus(event) {
+                event.preventDefault();
                 this.$emit('focus', event);
             },
             handleBlur(event) {
