@@ -11,7 +11,7 @@
             :placeholder="placeholder"
             v-show="!pickerVisible"
         />
-        <div class="date-list" id="date-list" v-if="pickerVisible">
+        <div class="date-list" ref="dateList" v-if="pickerVisible">
             <table class="date-table week-title">
                 <thead>
                 <th v-for="week in WEEKS">{{ week }}</th>
@@ -47,7 +47,7 @@
             value: [String],
             months: {
                 type: Number,
-                default: 13
+                default: 1
             },
             placeholder: String,
         },
@@ -111,7 +111,7 @@
         },
         data() {
             return {
-                $div: undefined,
+                $div: this.$refs.dateList,
                 currentValue: this.value,
                 datetime: this.value ? new Date(this.value) : new Date(),
                 date: null,
@@ -123,15 +123,15 @@
         },
         watch: {
             /*'pickerVisible'(a, b) {
-                if (!this.$div) {
-                    this.$div = document.getElementById('date-list');
-                }
                 if (a) {
                     this.$div.addEventListener('scroll', this.onScroll);
                 } else {
                     this.$div.removeEventListener('scroll', this.onScroll);
                 }
             }*/
+        },
+        mounted() {
+            debugger
         },
         methods: {
             handleDatePick(value) {
