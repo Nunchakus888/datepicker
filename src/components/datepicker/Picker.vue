@@ -47,7 +47,7 @@
             value: [String],
             months: {
                 type: Number,
-                default: 1
+                default: 13
             },
             placeholder: String,
             clearable: { //todo.

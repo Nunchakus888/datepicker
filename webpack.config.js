@@ -9,8 +9,8 @@ module.exports = {
         'common': ['vue']
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
-        publicPath: '/dist/',
+        path: path.resolve(__dirname, 'dist', 'static'),
+        publicPath: '/',
         filename: '[name].js'
     },
     module: {
@@ -78,7 +78,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, './'),
         port: 8889,
-        host: '0.0.0.0',
+        host: require('my-local-ip')(),
         disableHostCheck: true,
     },
     performance: {
