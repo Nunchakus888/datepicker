@@ -50,6 +50,10 @@
                 default: 1
             },
             placeholder: String,
+            clearable: { //todo.
+                type: Boolean,
+                default: true
+            }
         },
         components: {
             dateTable,
@@ -129,9 +133,6 @@
                     this.$div.removeEventListener('scroll', this.onScroll);
                 }
             }*/
-        },
-        mounted() {
-            debugger
         },
         methods: {
             handleDatePick(value) {
