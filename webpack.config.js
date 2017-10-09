@@ -86,8 +86,6 @@ module.exports = {
 
     context: __dirname,
 
-    target: 'web', // 枚举
-
     devtool: '#cheap-source-map',
 
     performance: {
