@@ -45,7 +45,7 @@
     <div>
         <div style="position: relative;">
             <!--此处未解耦，事件需绑定在svg元素上-->
-            <svg @click="handleInput" v-if="!currentValue" class="date-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <svg @click="handleFocus" v-if="!currentValue" class="date-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
                 <polygon points="38.48,29.193 38.48,32.5 40.48,32.5 40.48,29.193 66.137,29.193 66.137,32.5 68.137,32.5 68.137,29.193
                     78.882,29.193 78.882,38.833 28.019,38.833 28.019,29.193 "/>
