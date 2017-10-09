@@ -61,7 +61,6 @@
         data() {
             return {
                 tableRows: [[], [], [], [], []], //单月最多5row.
-                selectedDateTime: '',
             }
         },
         computed: {
@@ -117,7 +116,6 @@
                 if (target.nodeName !== 'TD') return;
                 if (target.className === 'blank') return;
                 //if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
-                this.selectedDateTime = `${this.year}-${this.month}-${e.target.textContent}`;
                 //Finding cell's object by cellIndex & rowIndex in table Element.
                 const cellIndex = target.cellIndex;
                 const rowIndex = target.parentNode.rowIndex;

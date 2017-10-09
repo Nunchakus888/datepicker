@@ -36,7 +36,7 @@
 }
 
 .date-table {
-    font-size: 0.9rem;
+    font-size: 1rem;
     width: 100%;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -51,7 +51,7 @@
     top: 0;
     left: 0;
     color: #666;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: bold;
 }
 
