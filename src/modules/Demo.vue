@@ -16,6 +16,7 @@
             @change="handleChange"
             v-model="date"
             placeholder="选择日期1"
+            :clearable="false"
         >
         </owo-datepicker>
 

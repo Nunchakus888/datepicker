@@ -44,8 +44,8 @@
 <template>
     <div>
         <div style="position: relative;">
-            <!--<i class="date-icon"></i>-->
-            <svg class="date-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <!--此处未解耦，事件需绑定在svg元素上-->
+            <svg @click="handleInput" v-if="!currentValue" class="date-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
                 <polygon points="38.48,29.193 38.48,32.5 40.48,32.5 40.48,29.193 66.137,29.193 66.137,32.5 68.137,32.5 68.137,29.193
                     78.882,29.193 78.882,38.833 28.019,38.833 28.019,29.193 "/>
@@ -57,13 +57,30 @@
                     c-1.57,0-3.079,0.695-3.925,1.298l-0.693-1.932c1.025-0.754,3.018-1.509,5.129-1.509c3.863,0,5.616,2.295,5.616,4.679
                     c0,2.023-1.209,3.743-3.622,4.618v0.061c2.413,0.482,4.377,2.293,4.377,5.038C67.137,66.164,64.691,68.91,59.983,68.91z"/>
             </svg>
+
+            <svg @click="handleClear" v-if="clearable && currentValue" class="date-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+                <path d="M45.708,41.166L37.909,32.6c-0.027-0.031-0.028-0.121,0-0.149l7.799-8.571c1.66-1.827,1.526-4.666-0.299-6.329
+                    c-0.796-0.723-1.86-1.121-2.997-1.121c-1.295,0-2.51,0.517-3.333,1.419l-7.297,8.019l-7.296-8.019
+                    c-0.822-0.902-2.035-1.42-3.329-1.42c-1.138,0-2.203,0.398-3.001,1.122c-1.827,1.663-1.961,4.502-0.298,6.331l7.797,8.566
+                    c0.027,0.031,0.028,0.122,0,0.151l-7.799,8.569c-1.661,1.828-1.527,4.667,0.3,6.33c0.795,0.724,1.859,1.121,2.997,1.121
+                    c1.295,0,2.51-0.519,3.333-1.419l7.296-8.02l7.297,8.018c0.847,0.932,2.055,1.466,3.313,1.466c1.116,0,2.188-0.414,3.018-1.167
+                    C47.234,45.834,47.368,42.995,45.708,41.166z M43.891,45.825c-0.834,0.754-2.388,0.683-3.139-0.147l-7.373-8.101
+                    c-0.419-0.464-0.985-0.718-1.596-0.718c-0.61,0-1.176,0.254-1.596,0.715l-7.373,8.104c-0.4,0.44-1.001,0.693-1.652,0.693
+                    c-0.569,0.001-1.097-0.193-1.485-0.546c-0.905-0.824-0.972-2.231-0.147-3.138l7.798-8.57c0.812-0.895,0.814-2.295,0-3.19
+                    L19.53,22.36c-0.824-0.906-0.758-2.314,0.146-3.138c0.833-0.757,2.388-0.681,3.139,0.146l7.373,8.101
+                    c0.805,0.89,2.385,0.89,3.191,0.002l7.371-8.102c0.755-0.829,2.311-0.904,3.139-0.148c0.438,0.398,0.695,0.944,0.723,1.537
+                    c0.027,0.594-0.176,1.162-0.574,1.6l-7.799,8.571c-0.812,0.894-0.812,2.295,0,3.19l7.799,8.566
+                    C44.861,43.593,44.796,45,43.891,45.825z"/>
+            </svg>
+
             <input
-                style=""
                 v-bind="$props"
                 :autocomplete="autoComplete"
                 :value="currentValue"
                 :type="type"
                 ref="input"
+                @clear="handleClear"
                 @input="handleInput"
                 @focus="handleFocus"
                 @blur="handleBlur"
@@ -88,14 +105,6 @@
                 default: 'text'
             },
             name: String,
-            autosize: {
-                type: [Boolean, Object],
-                default: false
-            },
-            rows: {
-                type: Number,
-                default: 2
-            },
             autoComplete: {
                 type: String,
                 default: 'off'
@@ -106,11 +115,7 @@
             max: {},
             min: {},
             step: {},
-            validateEvent: {
-                type: Boolean,
-                default: true
-            },
-            onIconClick: Function
+            clearable: Boolean,
         },
         data() {
             return {
@@ -139,7 +144,11 @@
             setCurrentValue(value) {
                 if (value === this.currentValue) return;
                 this.currentValue = value;
-            }
+            },
+            handleClear() {
+                this.setCurrentValue('');
+                this.$emit('clear', '');
+            },
         }
     }
 </script>

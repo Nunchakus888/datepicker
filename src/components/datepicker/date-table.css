@@ -59,7 +59,7 @@
 .date-table td:not(.blank) {
     font-weight: unset;
     width: 1em;
-    height: 2em;
+    height: 3em;
 }
 
 .date-table tr {

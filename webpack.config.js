@@ -78,19 +78,13 @@ module.exports = {
         }
     },
     devServer: {
-        contentBase: path.join(__dirname, './html'),
+        contentBase: path.join(__dirname, './'),
         port: 8889,
         host: require('my-local-ip')(),
         disableHostCheck: true,
     },
 
-    context: __dirname,
-
     devtool: '#cheap-source-map',
-
-    performance: {
-        hints: false
-    },
 
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({

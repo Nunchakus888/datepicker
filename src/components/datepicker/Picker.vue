@@ -7,10 +7,12 @@
         <owo-input
             @focus="handleFocus"
             @blur="handleBlur"
+            @clear="handleClear"
             :value="visibleDate"
             :placeholder="placeholder"
             v-show="!pickerVisible"
             :readonly="!0"
+            :clearable="clearable"
         />
         <div class="date-list" ref="dateList" v-if="pickerVisible">
             <table class="date-table week-title">
@@ -51,7 +53,7 @@
                 default: 13
             },
             placeholder: String,
-            clearable: { //todo.
+            clearable: {
                 type: Boolean,
                 default: true
             }
@@ -144,10 +146,16 @@
                 this.$emit('change', this.visibleDate);
                 setTimeout(() => {
                     this.pickerVisible = false;
-                }, 100);
+                }, 160);
             },
             handleFocus() {
                 this.pickerVisible = true;
+            },
+            handleClear(value) {
+                this.date = '';
+                this.currentValue = value;
+                this.resetDate();
+                this.$emit('change', this.visibleDate);
             },
             handleBlur() {
             },
