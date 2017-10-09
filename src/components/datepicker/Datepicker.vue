@@ -4,11 +4,6 @@
 
 <template>
     <div class="date-table-container">
-        <!--<table class="date-table">
-            <thead>
-                <th v-for="week in WEEKS">{{ week }}</th>
-            </thead>
-        </table>-->
 
         <p class="date-title">
             {{ `${this.year}年${this.month + 1}月` }}
