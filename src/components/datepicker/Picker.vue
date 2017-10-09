@@ -10,6 +10,7 @@
             :value="visibleDate"
             :placeholder="placeholder"
             v-show="!pickerVisible"
+            :readonly="!0"
         />
         <div class="date-list" ref="dateList" v-if="pickerVisible">
             <table class="date-table week-title">

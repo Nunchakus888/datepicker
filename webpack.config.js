@@ -9,10 +9,12 @@ module.exports = {
         'common': ['vue']
     },
     output: {
-        path: path.resolve(__dirname, 'dist', 'static'),
-        publicPath: '/',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: 'dist',
         filename: '[name].js'
     },
+    cache: true,
+
     module: {
         rules: [
             {
@@ -76,15 +78,22 @@ module.exports = {
         }
     },
     devServer: {
-        contentBase: path.join(__dirname, './'),
+        contentBase: path.join(__dirname, './html'),
         port: 8889,
         host: require('my-local-ip')(),
         disableHostCheck: true,
     },
+
+    context: __dirname,
+
+    target: 'web', // 枚举
+
+    devtool: '#cheap-source-map',
+
     performance: {
         hints: false
     },
-    devtool: '#cheap-source-map',
+
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
             names: ['common', 'manifest'],
