@@ -15,6 +15,7 @@
         <owo-datepicker
             @change="handleChange"
             v-model="date"
+            date-format="yyyy/MM/dd HH:mm:ss"
             placeholder="选择日期1"
             :clearable="false"
         >
@@ -29,6 +30,7 @@
         <owo-datepicker
             @change="handleChange"
             v-model="date2"
+            date-format="yyyy---MM---dd"
             placeholder="选择日期2"
         >
         </owo-datepicker>

@@ -11,13 +11,12 @@
             :value="visibleDate"
             :placeholder="placeholder"
             v-show="!pickerVisible"
-            :readonly="!0"
             :clearable="clearable"
         />
         <div class="date-list" ref="dateList" v-if="pickerVisible">
             <table class="date-table week-title">
                 <thead>
-                <th v-for="week in WEEKS">{{ week }}</th>
+                    <th v-for="week in WEEKS">{{ week }}</th>
                 </thead>
             </table>
 
@@ -30,13 +29,6 @@
             >
             </date-table>
         </div>
-        <!--
-            :week="week"
-            :disabled-date="disabledDate"
-            :selection-mode="selectionMode"
-            :first-day-of-week="firstDayOfWeek"
-        -->
-
     </div>
 </template>
 
@@ -50,9 +42,10 @@
             value: [String],
             months: {
                 type: Number,
-                default: 13
+                default: 13 //显示当前月的前一个月，以及后一年，共13个月
             },
             placeholder: String,
+            dateFormat: String, //默认：yyyy-MM-dd
             clearable: {
                 type: Boolean,
                 default: true

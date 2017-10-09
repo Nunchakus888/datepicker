@@ -96,7 +96,10 @@
             placeholder: String,
             size: String,
             resize: String,
-            readonly: Boolean,
+            readonly: {
+                type: Boolean,
+                default: true, //移动端禁止键盘弹起
+            },
             autofocus: Boolean,
             icon: String,
             disabled: Boolean,
