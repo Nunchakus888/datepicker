@@ -53,6 +53,7 @@ export const isDate = function(date) {
     if (isNaN(new Date(date).getTime())) return false;
     return true;
 };
+
 import dateUtil from './dateFormat';
 
 export const formatDate = function(date, format) {

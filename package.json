@@ -1,8 +1,8 @@
 {
-  "name": "datepicker",
+  "name": "owo-datepicker",
   "description": "",
   "version": "1.0.0",
-  "author": "nunchakus2012@gmail.com",
+  "author": "Jiaozi<nunchakus2012@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
