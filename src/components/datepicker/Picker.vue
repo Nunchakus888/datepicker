@@ -81,34 +81,6 @@
                     this.datetime = date;
                 }
             },
-
-            /*monthList: function() {
-                const list = [];
-                let year = this.datetime.getFullYear();
-                const month = this.datetime.getMonth();
-                const date = this.date;
-                let months = this.months;
-                let calcMonth = month - 1;
-                while (months) {
-                    if (calcMonth > 11) {
-                        calcMonth = 0;
-                        year++;
-                    } else if (calcMonth < 0) {
-                        calcMonth = 11;
-                        year--;
-                    }
-                    list.push(
-                        {
-                            date: calcMonth === month ? date : '',
-                            month: calcMonth,
-                            year: year
-                        }
-                    );
-                    calcMonth++;
-                    months--;
-                }
-                return list;
-            },*/
         },
         data() {
             return {
