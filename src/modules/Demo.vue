@@ -23,7 +23,6 @@
 
         <h1>hello</h1>
         <h1>world</h1>
-        <h1>😄😄િ😄ીિ🙄ીિ😇ી😄</h1>
         <h1>datepicker</h1>
 
         <owo-datepicker
@@ -59,7 +58,7 @@
         },
         methods: {
             handleChange(value) {
-                console.log('----final-value', value);
+                console.log('----final-value-->', value);
             }
         }
     }
