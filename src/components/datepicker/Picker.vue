@@ -21,7 +21,8 @@
             </table>
 
             <date-table
-                v-for="i in monthList"
+                :style="{ 'transform': 'translate3d(0, ' + (index === 0 ? translate : 0) + 'px, 0)' }"
+                v-for="i, index in monthList"
                 @pick="handleDatePick"
                 :year="i.year"
                 :month="i.month"
@@ -40,10 +41,6 @@
         name: 'owo-datepicker',
         props: {
             value: [String],
-            months: {
-                type: Number,
-                default: 13 //显示当前月的前一个月，以及后一年，共13个月
-            },
             placeholder: String,
             dateFormat: String, //默认：yyyy-MM-dd
             clearable: {
@@ -84,7 +81,6 @@
         },
         data() {
             return {
-                $div: this.$refs.dateList,
                 currentValue: this.value,
                 datetime: this.value ? new Date(this.value) : new Date(),
                 date: null,
@@ -92,6 +88,7 @@
                 month: null,
                 pickerVisible: false,
                 readonly: !0,
+                translate: 0,
                 bottomReached: false,
                 monthList: [],
 
@@ -120,7 +117,7 @@
                 this.minYear = this.maxYear = this.year;
                 this.calculateMonth(1);
             },
-            handleDatePick(value) {
+            handleDatePick(value) { //此处click发生在touchend之后，
                 this.datetime.setFullYear(value.getFullYear());
                 this.datetime.setMonth(value.getMonth(), value.getDate());
                 this.currentValue = value;
@@ -189,6 +186,8 @@
             handleTouchStart(event) {
                 this.startY = event.touches[0].clientY;
                 this.screenY = event.touches[0].screenY;
+                this.startScrollTop = this.getScrollTop(this.scrollEventTarget);
+                console.log('this.startScrollTop---', this.startScrollTop);
             },
 
             handleTouchMove(event) {
@@ -206,17 +205,28 @@
                 if (this.direction === 'down' && this.getScrollTop(this.scrollEventTarget) === 0) {
                     event.preventDefault();
                     event.stopPropagation();
-                    this.calculateMonth(-1);
+                    this.translate = 20;
+                    this.handleDebounce(-1);
                 }
 
+            },
+
+            handleDebounce(tag) {
+                if (!!this.dropLazyLoad) { //防抖处理
+                    clearTimeout(this.dropLazyLoad);
+                }
+                this.dropLazyLoad = setTimeout(() => {
+                    this.calculateMonth(tag);
+                }, 300);
             },
 
             handleTouchEnd(event) {
                 const clientY = event.changedTouches[0].clientY;
                 if (clientY !== this.startY && this.direction === 'up' && this.checkBottomReached()) {
+                    this.translate = 0;
                     event.preventDefault();
                     event.stopPropagation();
-                    this.calculateMonth(1);
+                    this.handleDebounce(1);
                 }
             },
 

@@ -53,6 +53,7 @@
     color: #666;
     font-size: 1rem;
     font-weight: bold;
+    z-index: 2018;
 }
 
 .date-table th,
