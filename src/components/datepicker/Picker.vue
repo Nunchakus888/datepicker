@@ -187,7 +187,6 @@
                 this.startY = event.touches[0].clientY;
                 this.screenY = event.touches[0].screenY;
                 this.startScrollTop = this.getScrollTop(this.scrollEventTarget);
-                console.log('this.startScrollTop---', this.startScrollTop);
             },
 
             handleTouchMove(event) {
