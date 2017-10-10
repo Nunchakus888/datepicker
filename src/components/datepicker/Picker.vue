@@ -134,7 +134,6 @@
             this.initMonth();
             this.bindTouchEvents();
             this.scrollEventTarget = this.getScrollEventTarget(this.$el);
-
         },
         methods: {
             initMonth() {
@@ -166,6 +165,7 @@
             },
 
             handleClear(value) {
+                this.monthList.forEach(i => { i.date = ''});
                 this.date = '';
                 this.currentValue = value;
                 this.resetDate();
