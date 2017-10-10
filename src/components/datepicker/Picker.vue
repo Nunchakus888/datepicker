@@ -81,7 +81,8 @@
                     this.datetime = date;
                 }
             },
-            monthList: function() {
+
+            /*monthList: function() {
                 const list = [];
                 let year = this.datetime.getFullYear();
                 const month = this.datetime.getMonth();
@@ -107,7 +108,7 @@
                     months--;
                 }
                 return list;
-            },
+            },*/
         },
         data() {
             return {
@@ -119,18 +120,35 @@
                 month: null,
                 pickerVisible: false,
                 readonly: !0,
+                bottomReached: false,
+                monthList: [],
+
+                minMonth: '',
+                maxMonth: '',
+                minYear: '',
+                maxYear: '',
             }
         },
-        watch: {
-            /*'pickerVisible'(a, b) {
-                if (a) {
-                    this.$div.addEventListener('scroll', this.onScroll);
-                } else {
-                    this.$div.removeEventListener('scroll', this.onScroll);
-                }
-            }*/
+
+        mounted() {
+            this.initMonth();
+            this.bindTouchEvents();
+            this.scrollEventTarget = this.getScrollEventTarget(this.$el);
+
         },
         methods: {
+            initMonth() {
+                this.monthList = [
+                    {
+                        date: this.date,
+                        month: this.month,
+                        year: this.year
+                    }
+                ];
+                this.minMonth = this.maxMonth = this.month;
+                this.minYear = this.maxYear = this.year;
+                this.calculateMonth(1);
+            },
             handleDatePick(value) {
                 this.datetime.setFullYear(value.getFullYear());
                 this.datetime.setMonth(value.getMonth(), value.getDate());
@@ -139,42 +157,134 @@
                 this.$emit('change', this.visibleDate);
                 setTimeout(() => {
                     this.pickerVisible = false;
+                    this.initMonth();
                 }, 160);
             },
+
             handleFocus() {
                 this.pickerVisible = true;
             },
+
             handleClear(value) {
                 this.date = '';
                 this.currentValue = value;
                 this.resetDate();
                 this.$emit('change', this.visibleDate);
             },
+
             handleBlur() {
             },
+
             resetDate() {
                 this.datetime = new Date(this.datetime);
             },
-            onScroll() {
-                let $div;
-                let windowHeight;
-                if (!$div) {
-                    $div = this.$div;
-                    windowHeight = window.innerHeight;
-                }
-                const bodyHeight = $div.clientHeight;
-                const scrollTop = $div.scrollTop;
-                console.log('----offsetTop:', $div.offsetTop);
-                console.log('----offsetHeight:', $div.offsetHeight);
-                console.log('----height:', $div.clientHeight);
-                console.log('----scrollTop:', $div.scrollTop);
-                console.log('----innerHeight:', window.innerHeight);
-                // 滚动到离 bottom 100px
-                //console.log('scrollTop---', window.innerHeight / document.body.offsetHeight);
-                if (scrollTop + windowHeight + 100 >= bodyHeight) {
-                    this.datetime.setMonth(this.month + 1);
+
+            getScrollTop(element) {
+                if (element === window) {
+                    return Math.max(window.pageYOffset || 0, document.documentElement.scrollTop);
+                } else {
+                    return element.scrollTop;
                 }
             },
+
+            checkBottomReached() {
+                if (this.scrollEventTarget === window) {
+                    return document.body.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight;
+                } else {
+                    return this.$el.getBoundingClientRect().bottom <= this.scrollEventTarget.getBoundingClientRect().bottom + 1;
+                }
+            },
+
+            getScrollEventTarget(element) {
+                let currentNode = element;
+                while (currentNode && currentNode.tagName !== 'HTML' &&
+                currentNode.tagName !== 'BODY' && currentNode.nodeType === 1) {
+                    let overflowY = document.defaultView.getComputedStyle(currentNode).overflowY;
+                    if (overflowY === 'scroll' || overflowY === 'auto') {
+                        return currentNode;
+                    }
+                    currentNode = currentNode.parentNode;
+                }
+                return window;
+            },
+
+            bindTouchEvents() {
+                this.$el.addEventListener('touchstart', this.handleTouchStart);
+                this.$el.addEventListener('touchmove', this.handleTouchMove);
+                this.$el.addEventListener('touchend', this.handleTouchEnd);
+            },
+
+            handleTouchStart(event) {
+                this.startY = event.touches[0].clientY;
+                this.screenY = event.touches[0].screenY;
+            },
+
+            handleTouchMove(event) {
+                if (this.startY < this.$el.getBoundingClientRect().top && this.startY > this.$el.getBoundingClientRect().bottom) {
+                    return;
+                }
+                this.currentY = event.touches[0].clientY;
+                let distance = this.currentY - this.startY;
+                if (distance > 0) {
+                    this.direction = 'down';
+                } else if (distance < 0) {
+                    this.direction = 'up';
+                }
+
+                if (this.direction === 'down' && this.getScrollTop(this.scrollEventTarget) === 0) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.calculateMonth(-1);
+                }
+
+            },
+
+            handleTouchEnd(event) {
+                const clientY = event.changedTouches[0].clientY;
+                if (clientY !== this.startY && this.direction === 'up' && this.checkBottomReached()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.calculateMonth(1);
+                }
+            },
+
+            calculateMonth(tag) {
+                const future = tag > 0;
+
+                let calcMonth = future ? this.maxMonth : this.minMonth;
+                let year = future ? this.maxYear : this.minYear;
+                calcMonth += tag;
+
+                if (calcMonth > 11) {
+                    calcMonth = 0;
+                    year++;
+                } else if (calcMonth < 0) {
+                    calcMonth = 11;
+                    year--;
+                }
+
+                if (future) {
+                    this.monthList.push(
+                        {
+                            date: null,
+                            month: calcMonth,
+                            year: year
+                        }
+                    );
+                    this.maxMonth = calcMonth;
+                    this.maxYear = year;
+                } else {
+                    this.monthList.unshift(
+                        {
+                            date: null,
+                            month: calcMonth,
+                            year: year
+                        }
+                    );
+                    this.minMonth = calcMonth;
+                    this.minYear = year;
+                }
+            }
         }
     }
 </script>

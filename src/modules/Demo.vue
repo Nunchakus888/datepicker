@@ -54,13 +54,13 @@
         data() {
             return {
                 date: '',
-                date2: '',
+                date2: '2012-12-21',
                 date3: '',
             }
         },
         methods: {
             handleChange(value) {
-                console.log('----', value);
+                console.log('----final-value', value);
             }
         }
     }

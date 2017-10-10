@@ -36,7 +36,7 @@
 }
 
 .date-table {
-    font-size: 1rem;
+    font-size: .8rem;
     width: 100%;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -85,8 +85,8 @@
     right: 0;
     width: 0;
     height: 0;
-    border-top: .5em solid #faaf2a;
-    border-left: .5em solid transparent;
+    border-top: 1em solid #faaf2a;
+    border-left: 1em solid transparent;
 }
 .date-table td.week {
     color: red;
