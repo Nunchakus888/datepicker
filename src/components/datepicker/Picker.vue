@@ -207,7 +207,6 @@
                     this.translate = 20;
                     this.handleDebounce(-1);
                 }
-
             },
 
             handleDebounce(tag) {

@@ -3,9 +3,9 @@
         height: 36px;
         background-color: #fff;
         border-radius: 4px;
-        border: 1px solid #bfcbd9;
+        border: 1px solid #faaf2a;
         box-sizing: border-box;
-        color: #1f2d3d;
+        color: #faaf2a;
         line-height: 1;
         font-size: 1rem;
         outline: 0;
@@ -14,14 +14,17 @@
         width: 100%;
         display: inline-block;
     }
-    input:focus {
+    input::-webkit-input-placeholder {
+        color: #faaf2a;
+    }
+    /*input:focus {
         outline: 0;
         outline-offset: -2px;
-        border-color: #20a0ff !important; /*Or it will be overwrite by hover attribute*/
+        border-color: #20a0ff !important; !*Or it will be overwrite by hover attribute*!
     }
     input:hover {
         border-color: #8391a5;
-    }
+    }*/
     .date-icon {
         position: absolute;
         width: 35px;
